@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+	<title>Teste vue</title>
+</head>
+<body>
+
+	<div id="id-app" v-bind:class="[cor_fundo, cor_fonte]">
+		{{ message }}
+	</div>
+
+	<div id="app-2">
+		<span v-bind:title="msg_title" v-bind:style="v_style">
+			    Passe o mouse
+		</span>
+	</div>
+
+	<div id="app-3">
+		
+		<span v-if="ligado">[ON] Esta é uma forma de testar</span>
+		<span v-else>[OFF] Esta é uma forma de testar</span>
+
+
+		<template v-if="ligado">
+			<h1>ON</h1>
+			<p>[on] Item 1</p>
+			<p>[on] Item 2</p>
+		</template>
+		<template v-else>
+			<h1>OFF</h1>
+			<p>[off] Item 1</p>
+			<p>[off] Item 2</p>
+		</template>
+
+
+	</div>
+
+	<div id="app-4">
+		<ul>
+			<li v-for="item in itens">
+				{{ item.id + 40 }} - {{ item.nome }}
+			</li>
+		</ul>
+	</div>
+
+	<div id="app-5">
+		<p>{{ message }}</p>
+		<!--<button v-on:click="f_act_message">Clique aqui</button>-->
+		<button @click="f_act_message">Clique aqui</button>
+	</div>
+
+	<div id="app-6">
+		<p>{{ message }}</p>
+		<input v-model="message">
+	</div>
+
+	<div id="app-7">
+		<ul>
+			<todo-item
+				v-for="i in lista_de_frutas"
+				v-bind:p="i"
+				v-bind:key="i.id">
+
+			</todo-item>
+		</ul>
+	</div>
+
+	<div id="app-8">
+		<p>Original: "{{ message }}"</p>
+		<p>Computed: "{{ upper_message }}"</p>
+	</div>
+
+	<div id="app-9">
+		<button @click="aviso('1234')">Aviso</button>
+	</div>
+
+</body>
+
+	<script>
+		var app = new Vue({
+			el:'#id-app',
+			data: {
+				message: 'Hello world!',
+				cor_fundo: 'bg-primary',
+				cor_fonte: 'text-white'
+			}
+		});
+
+		var app2 = new Vue({
+			el:'#app-2',
+			data:{
+				msg_title: "Data atual: " + new Date().toLocaleString(),
+				v_style: 'background: lightblue;'
+			}
+		});
+
+		var app3 = new Vue({
+			el: '#app-3',
+			data:{
+				ligado: true
+			}
+		});
+
+		var app4 = new Vue({
+			el: '#app-4',
+			data:{
+				itens:[
+					{id: 1, nome: 'A'},
+					{id: 2, nome: 'B'},
+					{id: 3, nome: 'C'},
+					{id: 4, nome: 'D'}
+				]
+			}
+		});
+
+		var app5 = new Vue({
+			el: '#app-5',
+			data:{
+				message: 'Testando o click do botão'
+			},
+			methods:{
+				f_act_message: function(){
+					var msg = this.message.split('').reverse().join('');
+					this.message = msg;
+				}
+			}
+		});
+
+		var app6 = new Vue({
+			el: '#app-6',
+			data:{
+				message: 'Hello world'
+			},
+			created: function(){
+				console.log('App6 criado');
+			}
+		});
+
+
+
+	////////
+
+	Vue.component('todo-item', {
+		props: ['p'],
+		template: '<li>{{ p.nome }}</li>'
+	});
+
+	var app7 = new Vue({
+		el: '#app-7',
+		data: {
+			lista_de_frutas: [
+				{ id: 1, nome: 'Maçã' },
+				{ id: 2, nome: 'Banana' },
+				{ id: 3, nome: 'Abacaxi' },
+				{ id: 4, nome: 'Ameixa' }
+			]
+		}
+	});
+
+	////////
+
+
+	var app8 = new Vue({
+		el: '#app-8',
+		data:{
+			message: 'Texto original'
+		},
+		computed:{
+			upper_message: function(){
+				return this.message.toUpperCase() + '  ....';
+			}
+		}
+	});
+
+	var app9 = new Vue({
+		el: '#app-9',
+		methods:{
+			aviso: function(msg){
+				alert(msg);
+			}
+		}
+	});
+
+	</script>
+
+</html>
