@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	
+	 <script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Form teste VUE</title>
+</head>
+<body>
+
+		<div id="page_form" class="card">
+			<div class="row">
+				<div class="col-md-12">
+					<form role="form">
+						<div class="form-group">
+							
+							<label for="id_nome">
+								Nome
+							</label>
+							<input type="text" class="form-control" id="id_nome" v-model="pessoa.nome" />
+						</div>
+						<div class="form-group">
+							
+							<label for="id_idade">
+								Idade
+							</label>
+							<input type="number" class="form-control" id="id_idade" v-model="pessoa.idade" />
+						</div>
+
+						<button type="button" id="btn_incluir" class="btn btn-primary" @click="add_pessoa">
+							Incluir
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<template>
+				<table class="table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nome</th>
+							<th>Idade</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in pessoas">
+							<td>{{ item.id }}</td>
+							<td>{{ item.nome | filter_upper }}</td>
+							<td>{{ item.idade }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</template>
+		</div>
+
+
+</body>
+
+<script src="form.js"></script>
+
+</html>
